@@ -146,7 +146,7 @@ public:
 	bool full() const { return size == capacity; }
 
 	void push(const T elem) {
-		if (size == -1)
+		if (size == 0)
 			capacity = size;
 		if (full())
 			resize(size_t(2.0 * capacity) + 1);
