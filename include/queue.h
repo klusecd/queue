@@ -127,7 +127,7 @@ public:
 };
 
 template <class T>
-class TQueue : public Vector<T>
+class TQueue : protected Vector<T>
 {
 protected:
 	size_t head;
@@ -139,7 +139,7 @@ public:
 
 	T front() { return data[head]; }
 
-	T back() { return data[capacity-size]; }
+	T back() { return data[capacity-size-1]; }
 
 	bool empty() const { return (!size); }
 
