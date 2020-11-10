@@ -146,11 +146,24 @@ public:
 	bool full() const { return size == capacity; }
 
 	void push(const T elem) {
-		if (size == 0)
-			capacity = size;
-		if (full())
+		if (full()) {
 			resize(size_t(2.0 * capacity) + 1);
-		data[capacity - size - 1] = elem;
+			if (head) {
+				T* temp = new T[capacity];
+				for (size_t i = 0; i < size - head; i++)
+					temp[i] = data[i + head];
+				for (size_t i = size - head; i < size; i++)
+					temp[i] = data[i + head - size];
+				delete[] data;
+				data = temp;
+				head = 0;
+			}
+		}
+		if (capacity - size == 1) {
+			capacity = size++;
+			data[capacity - size - 1] = elem;
+		}
+		else data[capacity - size] = elem;
 		size++;
 	};
 
